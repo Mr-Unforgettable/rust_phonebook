@@ -1,5 +1,5 @@
-use std::fmt;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 // use std::error::Error;
 // use std::io::{BufWriter, BufReader};
 // use std::fs::File;
@@ -51,13 +51,13 @@ impl Phonebook {
             .collect()
     }
 
-    // pub fn update_contact(&mut self, index: usize, contact: Contact) {
-    //     self.contacts[index] = contact;
-    // }
+    pub fn update_contact(&mut self, index: usize, contact: Contact) {
+        self.contacts[index] = contact;
+    }
 
-    // pub fn delete_contact(&mut self, index: usize) {
-    //     self.contacts.remove(index);
-    // }
+    pub fn delete_contact(&mut self, index: usize) {
+        self.contacts.remove(index);
+    }
 
     // pub fn save_contacts(&self, filename: &str) -> Result<(), Box<dyn Error>> {
     //     let file = File::create(filename)?;
