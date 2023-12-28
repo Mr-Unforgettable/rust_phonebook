@@ -1,5 +1,4 @@
 use std::io;
-
 mod contact;
 use contact::{Contact, Phonebook};
 
@@ -18,10 +17,9 @@ fn main() {
         println!("4. Update a contact");
         println!("5. Delete a contact");
         println!("6. Save contacts");
-        println!("0. Exit");
-
+        println!("7. Load contacts");
+        println!("0. Exit\n");
         println!("++++++++++++++++++++++++++++++++");
-
         println!("Option: ");
         let mut option = String::new();
 
@@ -157,12 +155,44 @@ fn main() {
             }
             6 => {
                 // Save contacts
-                println!("6. Save contacts");
+                let mut filename = String::new();
+                println!("Enter the file name:");
+                io::stdin()
+                    .read_line(&mut filename)
+                    .expect("Failed to read line.");
+
+                println!("Saving phonebook...");
+
+                phonebook
+                    .save_contacts(&filename)
+                    .expect("Failed to save file.");
+
+                println!("Contacts save successfully.");
             }
+            // 7 => {
+            //     // Load contacts
+            //     let mut filename = String::new();
+            //     io::stdin()
+            //         .read_line(&mut filename)
+            //         .expect("Failed to read line.");
+
+            //     match env::current_dir() {
+            //         Ok(current_dir) => {
+            //             let absolute_path = current_dir.join(&filename);
+            //             match phonebook.load_contacts(absolute_path.to_str().unwrap()) {
+            //                 Ok(_) => println!("Contacts loaded successfully."),
+            //                 Err(err) => eprintln!("Failed to load file: {}", err),
+            //             }
+            //         }
+            //         Err(err) => {
+            //             eprintln!("Failed to get current directory: {}", err)
+            //         }
+            //     }
+            // }
             0 => {
                 // Exit
                 println!("Exiting program ...");
-                println!("Thank you for using our phonebook!");
+                println!("Bye Bye 👋");
                 break;
             }
             _ => {
