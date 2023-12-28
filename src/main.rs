@@ -9,7 +9,7 @@ fn main() {
     println!("++++++++++++++++++++++++++++++++");
 
     let mut phonebook = Phonebook::new();
-    
+
     loop {
         println!("\nPlease choose an option:");
         println!("1. Add a contact");
@@ -87,11 +87,73 @@ fn main() {
             }
             4 => {
                 // Update a contact
-                println!("4. Update a contact");
+                println!("Enter the name of the contact to be updated: ");
+                let mut update_name = String::new();
+                io::stdin()
+                    .read_line(&mut update_name)
+                    .expect("Failed to read line.");
+
+                // Search for contact by name
+                if let Some(index) = phonebook
+                    .contacts
+                    .iter()
+                    .position(|c| c.name.trim() == update_name.trim())
+                {
+                    // contact found, now update the details
+                    println!("Enter the updated contact details:");
+
+                    println!("Name: ");
+                    let mut name = String::new();
+                    io::stdin()
+                        .read_line(&mut name)
+                        .expect("Failed to read line.");
+
+                    println!("Email: ");
+                    let mut email = String::new();
+                    io::stdin()
+                        .read_line(&mut email)
+                        .expect("Failed to read line.");
+
+                    println!("Phone: ");
+                    let mut phone = String::new();
+                    io::stdin()
+                        .read_line(&mut phone)
+                        .expect("Failed to read line.");
+
+                    // Create a update contact
+                    let update_contact = Contact {
+                        name: name.trim().to_string(),
+                        phone_number: phone.trim().to_string(),
+                        email: email.trim().to_string(),
+                    };
+
+                    // Update the contact in the phonebook
+                    phonebook.update_contact(index, update_contact);
+                    println!("Contact updated successfully!");
+                } else {
+                    println!("Contact not found.");
+                }
             }
             5 => {
                 // Delete a contact
-                println!("5. Delete a contact");
+                println!("Enter the name of the contact to delete: ");
+                let mut delete_name = String::new();
+                io::stdin()
+                    .read_line(&mut delete_name)
+                    .expect("Failed to read line.");
+
+                // Search the contact.
+                if let Some(index) = phonebook
+                    .contacts
+                    .iter()
+                    .position(|c| c.name.trim() == delete_name.trim())
+                {
+                    // Contact found, delete it.
+                    phonebook.delete_contact(index);
+                    println!("Contact deleted successfully.");
+                } else {
+                    println!("Contact not found.");
+                }
             }
             6 => {
                 // Save contacts
