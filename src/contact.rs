@@ -1,8 +1,8 @@
-use serde::{Deserialize, Serialize};
 use std::fmt;
-// use std::error::Error;
-// use std::io::{BufWriter, BufReader};
-// use std::fs::File;
+use std::fs::File;
+use std::error::Error;
+use serde::{Deserialize, Serialize};
+use std::io::{BufReader, BufWriter};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Contact {
@@ -59,17 +59,17 @@ impl Phonebook {
         self.contacts.remove(index);
     }
 
-    // pub fn save_contacts(&self, filename: &str) -> Result<(), Box<dyn Error>> {
-    //     let file = File::create(filename)?;
-    //     let writer = BufWriter::new(file);
-    //     serde_json::to_writer_pretty(writer, &self)?;
-    //     Ok(())
-    // }
+    pub fn save_contacts(&self, filename: &str) -> Result<(), Box<dyn Error>> {
+        let file = File::create(filename)?;
+        let writer = BufWriter::new(file);
+        serde_json::to_writer_pretty(writer, &self)?;
+        Ok(())
+    }
 
-    // pub fn load_contacts(filename: &str) -> Result<Phonebook, Box<dyn Error>> {
-    //     let file = File::open(filename)?;
-    //     let reader = BufReader::new(file);
-    //     let phonebook = serde_json::from_reader(reader)?;
-    //     Ok(phonebook)
-    // }
+    pub fn load_contacts(filename: &str) -> Result<Phonebook, Box<dyn Error>> {
+        let file = File::open(filename)?;
+        let reader = BufReader::new(file);
+        let phonebook = serde_json::from_reader(reader)?;
+        Ok(phonebook)
+    }
 }
