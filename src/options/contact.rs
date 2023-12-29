@@ -2,7 +2,7 @@ use std::fmt;
 use std::fs::File;
 use std::error::Error;
 use serde::{Deserialize, Serialize};
-use std::io::{BufReader, BufWriter};
+use std::io::{/*BufReader,*/ BufWriter};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Contact {
@@ -66,10 +66,10 @@ impl Phonebook {
         Ok(())
     }
 
-    pub fn load_contacts(filename: &str) -> Result<Phonebook, Box<dyn Error>> {
-        let file = File::open(filename)?;
-        let reader = BufReader::new(file);
-        let phonebook = serde_json::from_reader(reader)?;
-        Ok(phonebook)
-    }
+    // pub fn load_contacts(filename: &str) -> Result<Phonebook, Box<dyn Error>> {
+    //     let file = File::open(filename)?;
+    //     let reader = BufReader::new(file);
+    //     let phonebook = serde_json::from_reader(reader)?;
+    //     Ok(phonebook)
+    // }
 }
